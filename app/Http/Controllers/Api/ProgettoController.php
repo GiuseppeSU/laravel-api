@@ -10,7 +10,7 @@ class ProgettoController extends Controller
 {
     public function index()
     {
-        $progetti = Progetto::all();
+        $progetti = Progetto::with('type', 'technologies')->paginate(5);
         return response()->json([
             'success' => true,
             'results' => $progetti
