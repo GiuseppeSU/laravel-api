@@ -22,11 +22,18 @@ class ProgettoController extends Controller
 
     public function show($slug)
     {
-        $progetto = Progetto::where('slug', $slug)->with('type', 'technologies')->first();
-        return response()->json([
-            'succes' => true,
-            'progetto' => $progetto
-        ]);
+        $progetto = Progetto::where('slug', $slug)->with(['type', 'technologies'])->first();
+        if ($progetto) {
+            return response()->json([
+                'success' => true,
+                'progetto' => $progetto
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'error' => 'Post non trovato!'
+            ]);
+        }
 
     }
 }
